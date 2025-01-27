@@ -22,8 +22,32 @@ class MainActivity : ComponentActivity() {
                 ) {
                     UdyamRegistrationScreen(
                         sessionUrl = "YOUR_SESSION_URL",
+                        // Optional timeouts (in seconds)
+                        userInactivityTimeout = 300,
+                        pageLoadTimeout = 300,
                         onSessionInitiate = { decentroResponseJsonStr ->
-                            Log.d("UdyamRegistrationScreen", "OTP initiated. Use the following response: $decentroResponseJsonStr to continue the flow")
+                            Log.d(
+                                "UdyamRegistrationScreen",
+                                "OTP initiated. Use the following response: $decentroResponseJsonStr to continue the flow"
+                            )
+                        },
+                        onUserInactivity = {
+                            Log.d(
+                                "UdyamRegistrationScreen",
+                                "User has been inactive on the Udyam registration page. Please try again."
+                            )
+                        },
+                        onConnectionError = {
+                            Log.d(
+                                "UdyamRegistrationScreen",
+                                "Udyam Registration page threw connection error. Please try again."
+                            )
+                        },
+                        onPageLoadTimeout = {
+                            Log.d(
+                                "UdyamRegistrationScreen",
+                                "Udyam Registration page has timed out. Please try again."
+                            )
                         }
                     )
                 }
